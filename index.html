@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    
     :root{
       --red:#d71920;
       --red-2:#ff3a43;
@@ -69,8 +68,11 @@
     @keyframes shine{
       to{transform:translateX(100%)}
     }
-/* ── Hero ── */
-    /* ── Hero ── */
+    @keyframes menuPop{
+      from{opacity:0;transform:translateY(8px) scale(.97)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+
     .hero{
       min-height:100svh;
       display:grid;align-items:center;
@@ -121,6 +123,8 @@
       gap:10px;min-height:54px;padding:0 22px;
       border-radius:15px;font-weight:700;
       border:1px solid transparent;transition:.25s ease;
+      font-family:'Inter',system-ui,sans-serif;
+      font-size:1rem;cursor:pointer;
     }
     .btn:hover{transform:translateY(-2px)}
     .btn-primary{
@@ -134,7 +138,6 @@
     }
     .btn-secondary:hover{border-color:var(--red-line);background:rgba(255,255,255,.05)}
 
-    /* Hero visual */
     .hero-visual{position:relative;min-height:620px}
     .visual-card{
       position:absolute;overflow:hidden;border-radius:28px;
@@ -165,7 +168,6 @@
     .visual-badge strong{display:block;margin-bottom:7px;font-size:1rem}
     .visual-badge p{color:var(--text-2);line-height:1.6;font-size:.9rem}
 
-    /* ── Bandeau ── */
     .band{
       overflow:hidden;
       border-top:1px solid var(--border);
@@ -183,7 +185,6 @@
       letter-spacing:.14em;color:#eef2f6;
     }
 
-    /* ── Section ── */
     .section{padding:92px 0;position:relative}
     .section-head{
       display:flex;justify-content:space-between;
@@ -206,7 +207,6 @@
       gap:28px;align-items:center;
     }
 
-    /* ── Carousel ── */
     .carousel{
       position:relative;border-radius:28px;overflow:hidden;
       border:1px solid var(--border);box-shadow:var(--shadow);
@@ -263,7 +263,6 @@
     }
     .carousel-dot.active{background:var(--red-2);transform:scale(1.2)}
 
-    /* ── Text panel ── */
     .text-panel{
       position:relative;overflow:hidden;
       padding:34px;border-radius:28px;
@@ -303,7 +302,6 @@
     .feature-item strong{display:block;margin-bottom:6px}
     .feature-item span{color:var(--text-2);line-height:1.7;font-size:.95rem}
 
-    /* ── Contact ── */
     .contact-card{
       position:relative;overflow:hidden;
       display:grid;grid-template-columns:1.1fr .9fr;
@@ -338,6 +336,55 @@
     .contact-actions{display:grid;gap:12px;align-content:center}
     .contact-actions .btn{width:100%}
 
+    .phone-group{position:relative;width:100%}
+    .btn-phone{
+      width:100%;
+      background:rgba(58,159,212,.10);
+      color:#3a9fd4;
+      border-color:rgba(58,159,212,.28);
+      justify-content:flex-start;
+    }
+    .btn-phone:hover{background:rgba(58,159,212,.18);border-color:rgba(58,159,212,.45)}
+    #phone-chevron{margin-left:auto;transition:transform .25s ease}
+    .phone-group.open #phone-chevron{transform:rotate(180deg)}
+
+    .phone-menu{
+      display:none;
+      position:absolute;
+      bottom:calc(100% + 10px);
+      left:0;right:0;
+      background:#16191d;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.55);
+      z-index:10;
+    }
+    .phone-group.open .phone-menu{
+      display:block;
+      animation:menuPop .22s cubic-bezier(.16,1,.3,1);
+    }
+    .phone-option{
+      display:flex;align-items:center;gap:14px;
+      padding:14px 18px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      transition:background .18s ease;
+      cursor:pointer;
+      color:var(--text);
+    }
+    .phone-option:last-child{border-bottom:0}
+    .phone-option:hover{background:rgba(255,255,255,.05)}
+    .phone-option-icon{
+      width:36px;height:36px;flex:0 0 36px;
+      border-radius:10px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      display:grid;place-items:center;
+      color:var(--text-2);
+    }
+    .phone-option strong{display:block;font-size:.88rem;color:var(--white);margin-bottom:2px}
+    .phone-option span{font-size:.76rem;color:var(--muted)}
+
     .footer{
       padding:28px 0 42px;color:var(--muted);
       text-align:center;font-size:.86rem;
@@ -370,7 +417,6 @@
 <body>
 <div class="page">
 
-  <!-- ── Hero ── -->
   <section class="hero">
     <div class="container hero-grid">
       <div class="reveal">
@@ -401,7 +447,6 @@
     </div>
   </section>
 
-  <!-- ── Bandeau ── -->
   <div class="band">
     <div class="band-track">
       <span>Travaux publics</span>
@@ -421,7 +466,6 @@
     </div>
   </div>
 
-  <!-- ── Section expertise ── -->
   <section class="section">
     <div class="container">
       <div class="section-head reveal">
@@ -435,20 +479,22 @@
       </div>
 
       <div class="split-grid">
-
-        <!-- Carousel -->
         <div class="carousel reveal" id="carousel1">
           <div class="carousel-inner">
             <div class="carousel-slide">
+              <span class="carousel-tag">Réseau routier</span>
               <img src="1.png" alt="Réseau routier">
             </div>
             <div class="carousel-slide">
+              <span class="carousel-tag">Chantier</span>
               <img src="2.png" alt="Ingénieur sur chantier">
             </div>
             <div class="carousel-slide">
+              <span class="carousel-tag">Équipements</span>
               <img src="3.png" alt="Engins de chantier">
             </div>
             <div class="carousel-slide">
+              <span class="carousel-tag">Mobilisation</span>
               <img src="4.png" alt="Vue aérienne chantier">
             </div>
           </div>
@@ -462,7 +508,6 @@
           </div>
         </div>
 
-        <!-- Text -->
         <div class="text-panel reveal">
           <h3>Expertise nationale</h3>
           <p>
@@ -496,15 +541,12 @@
     </div>
   </section>
 
-  <!-- ── Contact ── -->
   <section class="section" id="contact">
     <div class="container">
       <div class="contact-card reveal">
         <div class="contact-meta">
           <h3>Nous retrouver</h3>
-          <p>
-            Retrouvez la SNTP, son siège social et ses principaux canaux de contact.
-          </p>
+          <p>Retrouvez la SNTP, son siège social et ses principaux canaux de contact.</p>
           <div class="contact-list">
             <div class="contact-item">
               <small>Siège social</small>
@@ -520,9 +562,64 @@
             </div>
           </div>
         </div>
+
         <div class="contact-actions">
           <a class="btn btn-primary" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">Site officiel</a>
           <a class="btn btn-secondary" href="mailto:info@sntp.dz">Envoyer un e-mail</a>
+
+          <div class="phone-group">
+            <button class="btn btn-phone" onclick="togglePhoneMenu()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              +213 797 21 55 14
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="phone-chevron">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+
+            <div class="phone-menu" id="phoneMenu">
+              <a class="phone-option" href="tel:+213797215514">
+                <div class="phone-option-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Appeler</strong>
+                  <span>Ouvrir le composeur</span>
+                </div>
+              </a>
+
+              <a class="phone-option" href="sms:+213797215514">
+                <div class="phone-option-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Envoyer un SMS</strong>
+                  <span>Ouvrir la messagerie</span>
+                </div>
+              </a>
+
+              <a class="phone-option" href="#" onclick="saveContact(event)">
+                <div class="phone-option-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <line x1="19" y1="8" x2="19" y2="14"/>
+                    <line x1="22" y1="11" x2="16" y2="11"/>
+                  </svg>
+                </div>
+                <div>
+                  <strong>Enregistrer le contact</strong>
+                  <span>Télécharger la fiche vCard</span>
+                </div>
+              </a>
+            </div>
+          </div>
+
           <a class="btn btn-secondary" href="https://www.facebook.com/sntp.officiel" target="_blank" rel="noopener noreferrer">Facebook</a>
           <a class="btn btn-secondary" href="https://www.linkedin.com/company/epe-spa-sntp/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
@@ -539,14 +636,17 @@
   const carousels = {};
 
   function initCarousel(id) {
-    carousels[id] = { current: 0, total: document.querySelectorAll(`#${id} .carousel-slide`).length };
+    carousels[id] = {
+      current: 0,
+      total: document.querySelectorAll('#' + id + ' .carousel-slide').length
+    };
   }
 
   function updateCarousel(id) {
     const state = carousels[id];
-    const inner = document.querySelector(`#${id} .carousel-inner`);
-    inner.style.transform = `translateX(-${state.current * 100}%)`;
-    document.querySelectorAll(`#${id} .carousel-dot`).forEach((d, i) => {
+    const inner = document.querySelector('#' + id + ' .carousel-inner');
+    inner.style.transform = 'translateX(-' + (state.current * 100) + '%)';
+    document.querySelectorAll('#' + id + ' .carousel-dot').forEach(function(d, i) {
       d.classList.toggle('active', i === state.current);
     });
   }
@@ -562,16 +662,55 @@
     updateCarousel(id);
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initCarousel('carousel1');
-    setInterval(() => moveCarousel('carousel1', 1), 4000);
+  function togglePhoneMenu() {
+    const group = document.querySelector('.phone-group');
+    group.classList.toggle('open');
+  }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+  function saveContact(e) {
+    e.preventDefault();
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'FN:SNTP',
+      'ORG:Société Nationale des Travaux Publics',
+      'TEL;TYPE=WORK,VOICE:+213797215514',
+      'EMAIL;TYPE=WORK:info@sntp.dz',
+      'URL:https://www.sntp.dz',
+      'ADR;TYPE=WORK:;;Route Nationale N°5 El Hamiz BP 39;Bordj El Kiffan;Alger;;Algérie',
+      'END:VCARD'
+    ].join('\n');
+    const blob = new Blob([vcard], {type: 'text/vcard'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'SNTP.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  document.addEventListener('click', function(e) {
+    const group = document.querySelector('.phone-group');
+    if (group && !group.contains(e.target)) {
+      group.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    initCarousel('carousel1');
+    setInterval(function() { moveCarousel('carousel1', 1); }, 4000);
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.13 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      observer.observe(el);
+    });
   });
 </script>
 </body>
