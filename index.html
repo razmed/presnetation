@@ -1,865 +1,344 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SNTP — Société Nationale des Travaux Publics</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --red:#d71920;
-      --red-2:#ff3a43;
-      --red-soft:rgba(215,25,32,.12);
-      --red-line:rgba(215,25,32,.30);
-      --black:#070707;
-      --black-2:#0f1012;
-      --black-3:#17191c;
-      --white:#ffffff;
-      --text:#f5f7fa;
-      --text-2:#c8cdd4;
-      --muted:#8c9198;
-      --border:rgba(255,255,255,.08);
-      --shadow:0 20px 60px rgba(0,0,0,.45);
-      --radius:28px;
-      --max:1200px;
-    }
-
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',system-ui,sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top, rgba(215,25,32,.18), transparent 26%),
-        linear-gradient(180deg, #060606 0%, #0b0c0e 38%, #101216 100%);
-      overflow-x:hidden;
-    }
-
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        linear-gradient(rgba(255,255,255,.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.015) 1px, transparent 1px);
-      background-size:36px 36px;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.4), transparent 92%);
-      pointer-events:none;
-      z-index:0;
-    }
-
-    img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-
-    .page{position:relative;z-index:1}
-    .container{width:min(var(--max), calc(100% - 28px));margin:auto}
-
-    .reveal{
-      opacity:0;
-      transform:translateY(32px);
-      transition:opacity .9s ease, transform .9s cubic-bezier(.16,1,.3,1);
-    }
-    .reveal.visible{
-      opacity:1;
-      transform:translateY(0);
-    }
-
-    @keyframes floatSoft{
-      0%,100%{transform:translateY(0)}
-      50%{transform:translateY(-10px)}
-    }
-
-    @keyframes pulseGlow{
-      0%,100%{box-shadow:0 0 0 0 rgba(215,25,32,.12),0 16px 50px rgba(0,0,0,.34)}
-      50%{box-shadow:0 0 0 14px rgba(215,25,32,0),0 24px 60px rgba(0,0,0,.45)}
-    }
-
-    @keyframes marquee{
-      from{transform:translateX(0)}
-      to{transform:translateX(-50%)}
-    }
-
-    .hero{
-      min-height:100svh;
-      display:grid;
-      align-items:center;
-      padding:44px 0 58px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      top:-120px;
-      right:-100px;
-      width:420px;
-      height:420px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(215,25,32,.28), rgba(215,25,32,.04) 55%, transparent 72%);
-      filter:blur(8px);
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.06fr .94fr;
-      gap:34px;
-      align-items:center;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 16px;
-      border-radius:999px;
-      border:1px solid var(--red-line);
-      background:rgba(255,255,255,.03);
-      color:#ffd9db;
-      font-size:13px;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:20px;
-      backdrop-filter:blur(8px);
-    }
-
-    .eyebrow::before{
-      content:"";
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:var(--red-2);
-      box-shadow:0 0 14px rgba(255,58,67,.85);
-    }
-
-    .hero-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(3.4rem,8vw,7rem);
-      line-height:.9;
-      text-transform:uppercase;
-      letter-spacing:.03em;
-      margin-bottom:18px;
-    }
-
-    .hero-title span{color:var(--red-2)}
-
-    .hero-text{
-      max-width:680px;
-      color:var(--text-2);
-      line-height:1.85;
-      font-size:1.03rem;
-      margin-bottom:28px;
-    }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-bottom:30px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      min-height:54px;
-      padding:0 22px;
-      border-radius:15px;
-      font-weight:700;
-      border:1px solid transparent;
-      transition:.25s ease;
-    }
-
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{
-      background:linear-gradient(135deg,var(--red),var(--red-2));
-      color:#fff;
-      box-shadow:0 16px 40px rgba(215,25,32,.28);
-    }
-    .btn-primary:hover{box-shadow:0 22px 50px rgba(215,25,32,.38)}
-    .btn-secondary{
-      color:#fff;
-      border-color:var(--border);
-      background:rgba(255,255,255,.03);
-      backdrop-filter:blur(8px);
-    }
-    .btn-secondary:hover{
-      border-color:var(--red-line);
-      background:rgba(255,255,255,.05);
-    }
-
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      max-width:760px;
-    }
-
-    .stat-card{
-      padding:18px 18px 16px;
-      border-radius:20px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
-    }
-
-    .stat-card strong{
-      display:block;
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:2rem;
-      letter-spacing:.04em;
-    }
-
-    .stat-card span{
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:.72rem;
-    }
-
-    .hero-visual{
-      position:relative;
-      min-height:620px;
-    }
-
-    .visual-card{
-      position:absolute;
-      overflow:hidden;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:var(--shadow);
-      animation:floatSoft 7s ease-in-out infinite;
-    }
-
-    .visual-card img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
-
-    .visual-main{
-      inset:0 38px 70px 0;
-    }
-
-    .visual-side{
-      width:220px;
-      height:280px;
-      right:-8px;
-      top:30px;
-      background:#fff;
-      padding:12px;
-      animation-delay:1s;
-    }
-
-    .visual-side img{
-      object-fit:contain;
-      background:#fff;
-      border-radius:16px;
-    }
-
-    .visual-badge{
-      position:absolute;
-      left:24px;
-      bottom:24px;
-      max-width:280px;
-      padding:18px;
-      border-radius:18px;
-      background:rgba(7,7,7,.72);
-      border:1px solid rgba(255,255,255,.08);
-      backdrop-filter:blur(16px);
-      animation:pulseGlow 3.8s ease-in-out infinite;
-    }
-
-    .visual-badge small{
-      display:block;
-      color:#ffb9bd;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:.68rem;
-      margin-bottom:8px;
-    }
-
-    .visual-badge strong{
-      display:block;
-      margin-bottom:7px;
-      font-size:1rem;
-    }
-
-    .visual-badge p{
-      color:var(--text-2);
-      line-height:1.6;
-      font-size:.9rem;
-    }
-
-    .band{
-      overflow:hidden;
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-      background:linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.01), rgba(255,255,255,.03));
-    }
-
-    .band-track{
-      display:flex;
-      width:max-content;
-      animation:marquee 18s linear infinite;
-    }
-
-    .band-track span{
-      flex:0 0 auto;
-      padding:16px 26px;
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:1.25rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:#eef2f6;
-    }
-
-    .section{
-      padding:92px 0;
-      position:relative;
-    }
-
-    .section-head{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:24px;
-      margin-bottom:36px;
-    }
-
-    .section-kicker{
-      color:#ffb8bc;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      font-size:.72rem;
-      margin-bottom:12px;
-    }
-
-    .section-title{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:clamp(2.1rem,4vw,3.5rem);
-      line-height:.95;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
-    .section-title span{color:var(--red-2)}
-
-    .section-desc{
-      max-width:550px;
-      color:var(--text-2);
-      line-height:1.8;
-    }
-
-    .split-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
-      align-items:center;
-    }
-
-    .media-block{
-      position:relative;
-      min-height:500px;
-      overflow:hidden;
-      border-radius:28px;
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-      background:#111;
-    }
-
-    .media-block::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.62));
-    }
-
-    .media-block img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition:transform .9s ease;
-      transform:scale(1.03);
-    }
-
-    .media-block:hover img{transform:scale(1.08)}
-
-    .media-tag{
-      position:absolute;
-      top:18px;
-      left:18px;
-      z-index:2;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(215,25,32,.92);
-      color:#fff;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      font-size:.7rem;
-    }
-
-    .text-panel{
-      position:relative;
-      overflow:hidden;
-      padding:34px;
-      border-radius:28px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(10px);
-    }
-
-    .text-panel::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, transparent, rgba(255,255,255,.04), transparent);
-      transform:translateX(-100%);
-      animation:shine 7s linear infinite;
-    }
-
-    @keyframes shine{
-      to{transform:translateX(100%)}
-    }
-
-    .text-panel h3{
-      position:relative;
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:2rem;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      margin-bottom:16px;
-      z-index:1;
-    }
-
-    .text-panel p{
-      position:relative;
-      color:var(--text-2);
-      line-height:1.85;
-      margin-bottom:18px;
-      z-index:1;
-    }
-
-    .feature-list{
-      position:relative;
-      display:grid;
-      gap:14px;
-      margin-top:16px;
-      z-index:1;
-    }
-
-    .feature-item{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-      padding:14px 0;
-      border-top:1px solid rgba(255,255,255,.07);
-    }
-
-    .feature-item:first-child{
-      border-top:0;
-      padding-top:0;
-    }
-
-    .feature-icon{
-      width:40px;
-      height:40px;
-      flex:0 0 40px;
-      border-radius:12px;
-      display:grid;
-      place-items:center;
-      background:var(--red-soft);
-      border:1px solid var(--red-line);
-      color:var(--red-2);
-      font-weight:800;
-    }
-
-    .feature-item strong{
-      display:block;
-      margin-bottom:6px;
-    }
-
-    .feature-item span{
-      color:var(--text-2);
-      line-height:1.7;
-      font-size:.95rem;
-    }
-
-    .contact-card{
-      position:relative;
-      overflow:hidden;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:28px;
-      padding:34px;
-      border-radius:30px;
-      border:1px solid var(--border);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      box-shadow:var(--shadow);
-    }
-
-    .contact-card::before{
-      content:"";
-      position:absolute;
-      top:-60px;
-      right:-50px;
-      width:220px;
-      height:220px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(215,25,32,.18), transparent 70%);
-    }
-
-    .contact-meta h3{
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:2.2rem;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-      margin-bottom:14px;
-    }
-
-    .contact-meta p{
-      color:var(--text-2);
-      line-height:1.85;
-      margin-bottom:22px;
-    }
-
-    .contact-list{
-      display:grid;
-      gap:14px;
-    }
-
-    .contact-item{
-      padding:16px 18px;
-      border-radius:16px;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.06);
-    }
-
-    .contact-item small{
-      display:block;
-      color:#ffb8bc;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      font-size:.68rem;
-      margin-bottom:6px;
-    }
-
-    .contact-item span{
-      color:#fff;
-      font-weight:600;
-    }
-
-    .contact-actions{
-      display:grid;
-      gap:12px;
-      align-content:center;
-    }
-
-    .contact-actions .btn{width:100%}
-
-    .footer{
-      padding:28px 0 42px;
-      color:var(--muted);
-      text-align:center;
-      font-size:.86rem;
-    }
-
-    @media (max-width: 980px){
-      .hero-grid,
-      .split-grid,
-      .contact-card,
-      .section-head{
-        grid-template-columns:1fr;
-        display:grid;
-      }
-
-      .section-head{align-items:start}
-      .hero-visual{min-height:500px}
-      .visual-main{inset:0 70px 65px 0}
-      .visual-side{width:180px;height:220px;right:0;top:18px}
-    }
-
-    @media (max-width: 720px){
-      .hero{min-height:auto;padding-top:28px}
-      .hero-title{font-size:clamp(2.9rem,16vw,4.6rem)}
-      .hero-stats{grid-template-columns:1fr}
-      .hero-actions{flex-direction:column}
-      .btn{width:100%}
-      .hero-visual{min-height:360px}
-      .visual-main{inset:0 20px 55px 0}
-      .visual-side{width:125px;height:160px;top:10px;right:-4px}
-      .visual-badge{left:12px;right:12px;bottom:12px;max-width:none}
-      .section{padding:68px 0}
-      .text-panel,.contact-card{padding:22px}
-      .media-block{min-height:340px}
-    }
+    :root {
+      --red:          #cc1e1e;
+      --red-dark:     #a01414;
+      --red-light:    #e83232;
+      --red-dim:      rgba(204,30,30,0.12);
+      --red-border:   rgba(204,30,30,0.30);
+      --bg:           #080a0b;
+      --surface:      #0f1113;
+      --surface-2:    #161a1d;
+      --surface-3:    #1d2226;
+      --border:       rgba(255,255,255,0.08);
+      --border-2:     rgba(255,255,255,0.05);
+      --text:         #f5f4f2;
+      --text-2:       #a8a6a3;
+      --muted:        #5c5f63;
+      --green:        #3cb97a;
+      --green-dim:    rgba(60,185,122,0.10);
+      --green-border: rgba(60,185,122,0.25);
+      --blue:         #3a9fd4;
+      --blue-dim:     rgba(58,159,212,0.10);
+      --blue-border:  rgba(58,159,212,0.25);
+      --fb:           #1877f2;
+      --fb-dim:       rgba(24,119,242,0.10);
+      --fb-border:    rgba(24,119,242,0.25);
+      --li:           #0a66c2;
+      --li-dim:       rgba(10,102,194,0.10);
+      --li-border:    rgba(10,102,194,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    body {
+      min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      padding: 1.5rem;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(204,30,30,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 90% 90%, rgba(204,30,30,0.04) 0%, transparent 55%);
+    }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; max-width: 460px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(204,30,30,0.05),
+        0 24px 80px rgba(0,0,0,0.7),
+        0 0 100px rgba(204,30,30,0.04);
+      animation: rise 0.55s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+      background: linear-gradient(170deg, #141618 0%, #0c0e10 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 100% 70% at 50% -10%, rgba(204,30,30,0.10) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--red-dark) 20%, var(--red-light) 50%, var(--red-dark) 80%, transparent 100%);
+    }
+    .hero-line {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(204,30,30,0.6) 30%, rgba(204,30,30,0.9) 50%, rgba(204,30,30,0.6) 70%, transparent 100%);
+    }
+
+    /* Logo */
+    .logo-wrap {
+      width: 90px; height: 90px; border-radius: 1.25rem;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.35rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.12);
+      overflow: hidden;
+      padding: 6px;
+    }
+    .logo-wrap img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+
+    .company-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2rem, 7vw, 2.6rem);
+      font-weight: 800; color: #fff;
+      letter-spacing: 0.08em; line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .company-name span { color: var(--red-light); }
+    .company-full {
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.09em; text-transform: uppercase;
+      line-height: 1.5; margin-bottom: 1rem;
+    }
+    .tagline {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.78rem; font-weight: 500;
+      color: rgba(255,255,255,0.75); letter-spacing: 0.02em;
+      padding: 0.3rem 0.9rem; border-radius: 9999px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+    }
+    .tagline::before, .tagline::after {
+      content: ''; display: block;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--red-light);
+    }
+
+    /* ── Stats ── */
+    .stats { display: flex; border-bottom: 1px solid var(--border); }
+    .stat {
+      flex: 1; padding: 1rem 0.5rem; text-align: center;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--red-light); line-height: 1; margin-bottom: 0.18rem;
+    }
+    .stat-label {
+      font-size: 0.6rem; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted); font-weight: 500; line-height: 1.3;
+    }
+
+    /* ── Body ── */
+    .body { padding: 1.65rem 1.75rem 1.85rem; display: flex; flex-direction: column; gap: 1.35rem; }
+
+    .description {
+      font-size: 0.82rem; color: var(--text-2);
+      line-height: 1.72; text-align: center;
+      padding: 0 0.25rem;
+    }
+
+    /* ── Address ── */
+    .address-block {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.8rem 0.9rem; border-radius: 0.75rem;
+      background: var(--surface-2); border: 1px solid var(--border-2);
+    }
+    .addr-icon { flex-shrink: 0; margin-top: 1px; }
+    .addr-icon svg { width: 15px; height: 15px; stroke: var(--red-light); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .addr-text { font-size: 0.78rem; color: var(--text-2); line-height: 1.55; }
+    .addr-text strong { color: var(--text); font-weight: 600; font-size: 0.8rem; }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 0.63rem; text-transform: uppercase;
+      letter-spacing: 0.12em; color: var(--muted); font-weight: 600;
+      margin-bottom: 0.65rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-title::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--border);
+    }
+
+    /* ── Buttons grid ── */
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+    .btn-grid .btn-full { grid-column: 1 / -1; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.55rem;
+      padding: 0.82rem 1rem; border-radius: 0.75rem;
+      font-family: inherit; font-size: 0.83rem; font-weight: 600;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: all 200ms cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+    .btn span { flex: 1; text-align: left; }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    /* Website — red */
+    .btn-website {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red-dark);
+      box-shadow: 0 4px 18px rgba(204,30,30,0.30);
+    }
+    .btn-website:hover { background: var(--red-light); box-shadow: 0 8px 28px rgba(204,30,30,0.42); }
+    .btn-website svg { stroke: #fff; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn-email {
+      background: var(--green-dim); color: var(--green);
+      border-color: var(--green-border);
+    }
+    .btn-email:hover { background: rgba(60,185,122,0.18); box-shadow: 0 4px 16px rgba(60,185,122,0.12); }
+    .btn-email svg { stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn-phone {
+      background: var(--blue-dim); color: var(--blue);
+      border-color: var(--blue-border);
+    }
+    .btn-phone:hover { background: rgba(58,159,212,0.18); box-shadow: 0 4px 16px rgba(58,159,212,0.12); }
+    .btn-phone svg { stroke: var(--blue); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    .btn-facebook {
+      background: var(--fb-dim); color: var(--fb);
+      border-color: var(--fb-border);
+    }
+    .btn-facebook:hover { background: rgba(24,119,242,0.18); box-shadow: 0 4px 16px rgba(24,119,242,0.12); }
+    .btn-facebook svg { fill: var(--fb); }
+
+    .btn-linkedin {
+      background: var(--li-dim); color: var(--li);
+      border-color: var(--li-border);
+    }
+    .btn-linkedin:hover { background: rgba(10,102,194,0.18); box-shadow: 0 4px 16px rgba(10,102,194,0.12); }
+    .btn-linkedin svg { fill: var(--li); }
+
+    /* ── Footer ── */
+    .footer {
+      padding-top: 1.1rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; gap: 0.45rem;
+    }
+    .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--red-light); opacity: 0.55; }
+    .footer-text { font-size: 0.63rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; }
   </style>
 </head>
 <body>
-  <div class="page">
+<div class="card">
 
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="reveal">
-          <div class="eyebrow">Entreprise nationale d'infrastructure</div>
-          <h1 class="hero-title">Bâtir<br><span>l'Algérie</span><br>de demain</h1>
-          <p class="hero-text">
-            La SNTP conçoit et réalise des projets de travaux publics, d'infrastructures routières, d'aménagements stratégiques et de développement territorial avec une image plus moderne, plus claire et plus impactante.
-          </p>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-accent"></div>
+    <div class="logo-wrap">
+      <img src="data:image/jpeg;base64,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" alt="Logo SNTP">
+    </div>
+    <div class="company-name">S<span>N</span>TP</div>
+    <div class="company-full">Société Nationale des Travaux Publics</div>
+    <div class="tagline">Bâtir l'Algérie de demain</div>
+    <div class="hero-line"></div>
+  </div>
 
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">Visiter le site officiel</a>
-            <a class="btn btn-secondary" href="#contact">Nous contacter</a>
-          </div>
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">1977</div>
+      <div class="stat-label">Fondée en</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">40+</div>
+      <div class="stat-label">Ans d'expérience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">5 000+</div>
+      <div class="stat-label">Employés</div>
+    </div>
+  </div>
 
-          <div class="hero-stats reveal">
-            <div class="stat-card">
-              <strong>1977</strong>
-              <span>Fondation</span>
-            </div>
-            <div class="stat-card">
-              <strong>40+</strong>
-              <span>Ans d'expérience</span>
-            </div>
-            <div class="stat-card">
-              <strong>5 000+</strong>
-              <span>Collaborateurs</span>
-            </div>
-          </div>
-        </div>
+  <!-- Body -->
+  <div class="body">
 
-        <div class="hero-visual reveal">
-          <div class="visual-card visual-main">
-            <img src="sntp-ingenieur-chantier-2.jpg" alt="Chantier SNTP">
-          </div>
+    <p class="description">
+      Fondée en 1977, la SNTP est un acteur national de référence dans la réalisation de grands projets d'infrastructure routière, autoroutière, aéroportuaire et hydraulique. Forte de plus de 40 ans d'expérience, elle contribue activement au développement socio-économique de l'Algérie.
+    </p>
 
-          <div class="visual-card visual-side">
-            <img src="logo-sntp.jpg" alt="Logo SNTP">
-          </div>
-
-          <div class="visual-badge">
-            <small>SNTP</small>
-            <strong>Société Nationale des Travaux Publics</strong>
-            <p>Un savoir-faire historique au service des grands projets d'infrastructure et de la transformation du territoire.</p>
-          </div>
-        </div>
+    <div class="address-block">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
-    </section>
-
-    <div class="band">
-      <div class="band-track">
-        <span>Travaux publics</span>
-        <span>Infrastructure</span>
-        <span>Routes</span>
-        <span>Hydraulique</span>
-        <span>Ouvrages stratégiques</span>
-        <span>Ingénierie</span>
-        <span>Performance</span>
-        <span>Travaux publics</span>
-        <span>Infrastructure</span>
-        <span>Routes</span>
-        <span>Hydraulique</span>
-        <span>Ouvrages stratégiques</span>
-        <span>Ingénierie</span>
-        <span>Performance</span>
+      <div class="addr-text">
+        <strong>Siège social</strong><br>
+        Route Nationale N°5, El Hamiz — BP 39<br>
+        Bordj El Kiffan, Alger, Algérie
       </div>
     </div>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-head reveal">
-          <div>
-            <div class="section-kicker">Présentation</div>
-            <h2 class="section-title">Une vision <span>moderne</span></h2>
-          </div>
-          <p class="section-desc">
-            Une structure plus actuelle avec image sur un côté, texte sur l'autre, contrastes forts, animations discrètes et sections bien séparées pour un rendu professionnel.
-          </p>
-        </div>
+    <div>
+      <div class="section-title">Nous retrouver &amp; contacter</div>
+      <div class="btn-grid">
 
-        <div class="split-grid">
-          <div class="media-block reveal">
-            <span class="media-tag">Réseau routier</span>
-            <img src="route.jpg" alt="Projet routier SNTP">
-          </div>
+        <a class="btn btn-website btn-full" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Site officiel — sntp.dz</span>
+          <svg viewBox="0 0 24 24" style="width:13px;opacity:.75"><path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+        </a>
 
-          <div class="text-panel reveal">
-            <h3>Expertise nationale</h3>
-            <p>
-              Depuis plusieurs décennies, la SNTP intervient sur des projets structurants à forte valeur ajoutée. Cette nouvelle mise en page donne plus de rythme et met mieux en valeur le message institutionnel.
-            </p>
+        <a class="btn btn-email" href="mailto:info@sntp.dz?subject=Contact%20SNTP&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20concernant%20...">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Envoyer un e-mail</span>
+        </a>
 
-            <div class="feature-list">
-              <div class="feature-item">
-                <div class="feature-icon">01</div>
-                <div>
-                  <strong>Design premium</strong>
-                  <span>Ambiance noir profond, accent rouge puissant et contenu mieux hiérarchisé.</span>
-                </div>
-              </div>
+        <a class="btn btn-phone" href="tel:+213797215514">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+213 797 21 55 14</span>
+        </a>
 
-              <div class="feature-item">
-                <div class="feature-icon">02</div>
-                <div>
-                  <strong>Lecture plus fluide</strong>
-                  <span>Chaque section associe un visuel fort à un texte clair pour raconter l'activité.</span>
-                </div>
-              </div>
+        <a class="btn btn-facebook" href="https://www.facebook.com/sntp.officiel" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="17" height="17"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span>Facebook</span>
+        </a>
 
-              <div class="feature-item">
-                <div class="feature-icon">03</div>
-                <div>
-                  <strong>Animations élégantes</strong>
-                  <span>Apparition progressive, halo, bandeau animé et effets de survol sans surcharge visuelle.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/company/epe-spa-sntp/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="17" height="17"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+
       </div>
-    </section>
+    </div>
 
-    <section class="section">
-      <div class="container split-grid">
-        <div class="text-panel reveal">
-          <h3>Des chantiers à grande échelle</h3>
-          <p>
-            Les blocs alternent image et contenu afin de donner plus de dynamisme à la page. Cette approche met mieux en valeur les activités, les équipes et les moyens matériels de l'entreprise.
-          </p>
+    <div class="footer">
+      <div class="footer-dot"></div>
+      <span class="footer-text">EPE · SPA — Alger, Algérie</span>
+      <div class="footer-dot"></div>
+    </div>
 
-          <div class="feature-list">
-            <div class="feature-item">
-              <div class="feature-icon">A</div>
-              <div>
-                <strong>Travaux routiers</strong>
-                <span>Axes, terrassement, aménagement et développement des infrastructures de transport.</span>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">B</div>
-              <div>
-                <strong>Coordination terrain</strong>
-                <span>Suivi opérationnel, organisation des équipes et maîtrise de l'exécution sur site.</span>
-              </div>
-            </div>
-
-            <div class="feature-item">
-              <div class="feature-icon">C</div>
-              <div>
-                <strong>Capacité opérationnelle</strong>
-                <span>Moyens humains et matériels adaptés aux projets de grande envergure.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="media-block reveal">
-          <span class="media-tag">Équipements</span>
-          <img src="people-fallback-3.jpg" alt="Engins et chantier">
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container split-grid">
-        <div class="media-block reveal">
-          <span class="media-tag">Mobilisation</span>
-          <img src="couverture-4.jpg" alt="Vue d'ensemble des travaux">
-        </div>
-
-        <div class="text-panel reveal">
-          <h3>Image d'entreprise renforcée</h3>
-          <p>
-            L'identité visuelle rouge, blanche et noire transmet la solidité, la précision et l'autorité. Le logo prend plus de place dans la composition et soutient mieux la présence institutionnelle de la marque.
-          </p>
-          <p>
-            L'utilisation de photos réelles dans différentes sections apporte immédiatement plus de crédibilité et donne à la page un style plus vivant, plus actuel et plus professionnel.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container split-grid">
-        <div class="text-panel reveal">
-          <h3>Un rendu plus vivant</h3>
-          <p>
-            Les animations restent sobres pour conserver un aspect sérieux. Elles servent à moderniser la page sans la transformer en site trop chargé.
-          </p>
-          <p>
-            Le résultat fonctionne bien sur desktop comme sur mobile grâce à une grille responsive qui réorganise automatiquement les sections.
-          </p>
-        </div>
-
-        <div class="media-block reveal">
-          <span class="media-tag">Dynamique</span>
-          <img src="managefero-5.jpg" alt="Trafic et lignes lumineuses">
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="container">
-        <div class="contact-card reveal">
-          <div class="contact-meta">
-            <h3>Nous retrouver</h3>
-            <p>
-              Retrouvez la SNTP, son siège social et ses principaux canaux de contact dans un bloc final plus clair, plus lisible et parfaitement intégré au nouveau design.
-            </p>
-
-            <div class="contact-list">
-              <div class="contact-item">
-                <small>Siège social</small>
-                <span>Route Nationale N°5, El Hamiz — BP 39, Bordj El Kiffan, Alger, Algérie</span>
-              </div>
-
-              <div class="contact-item">
-                <small>Email</small>
-                <span>info@sntp.dz</span>
-              </div>
-
-              <div class="contact-item">
-                <small>Téléphone</small>
-                <span>+213 797 21 55 14</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="contact-actions">
-            <a class="btn btn-primary" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">Site officiel</a>
-            <a class="btn btn-secondary" href="mailto:info@sntp.dz">Envoyer un e-mail</a>
-            <a class="btn btn-secondary" href="https://www.facebook.com/sntp.officiel" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/company/epe-spa-sntp/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container">
-        SNTP — Société Nationale des Travaux Publics · EPE / SPA · Alger, Algérie
-      </div>
-    </footer>
   </div>
-
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.14 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  </script>
+</div>
 </body>
 </html>
