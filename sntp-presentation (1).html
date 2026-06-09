@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNTP — Société Nationale des Travaux Publics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold:         #c8973a;
+      --gold-light:   #e8b85a;
+      --gold-dim:     rgba(200,151,58,0.13);
+      --gold-border:  rgba(200,151,58,0.28);
+      --bg:           #0c0e10;
+      --surface:      #131619;
+      --surface-2:    #191d21;
+      --surface-3:    #1e2329;
+      --border:       rgba(255,255,255,0.07);
+      --text:         #edecea;
+      --text-2:       #b5b3b0;
+      --muted:        #7a7c80;
+      --green:        #4db87a;
+      --green-dim:    rgba(77,184,122,0.12);
+      --green-border: rgba(77,184,122,0.28);
+      --blue:         #4fa3d4;
+      --blue-dim:     rgba(79,163,212,0.12);
+      --blue-border:  rgba(79,163,212,0.28);
+      --fb:           #1877f2;
+      --fb-dim:       rgba(24,119,242,0.12);
+      --fb-border:    rgba(24,119,242,0.28);
+      --li:           #0a66c2;
+      --li-dim:       rgba(10,102,194,0.12);
+      --li-border:    rgba(10,102,194,0.28);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    body {
+      min-height: 100dvh;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg); color: var(--text);
+      padding: 1.5rem;
+      background-image:
+        radial-gradient(ellipse 90% 55% at 50% -5%, rgba(200,151,58,0.11) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 95% 95%, rgba(200,151,58,0.04) 0%, transparent 55%);
+    }
+
+    /* ── Card ── */
+    .card {
+      width: 100%; max-width: 460px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1.75rem;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(200,151,58,0.06),
+        0 32px 80px rgba(0,0,0,0.6),
+        0 0 120px rgba(200,151,58,0.035);
+      animation: rise 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding: 2.75rem 2rem 2.25rem;
+      text-align: center;
+      background: linear-gradient(175deg, #15191d 0%, #0f1215 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 110% 80% at 50% -10%, rgba(200,151,58,0.09) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-line {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold-light) 50%, var(--gold) 70%, transparent 100%);
+      opacity: 0.45;
+    }
+
+    .emblem {
+      width: 78px; height: 78px; border-radius: 1.2rem;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.35rem;
+      box-shadow: 0 8px 32px rgba(200,151,58,0.32), 0 0 0 1px rgba(200,151,58,0.18);
+    }
+    .emblem svg { width: 42px; height: 42px; }
+
+    .company-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 6vw, 2.25rem);
+      font-weight: 700; color: var(--gold);
+      letter-spacing: 0.05em; line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .company-full {
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase;
+      line-height: 1.5; margin-bottom: 1.1rem;
+    }
+    .tagline {
+      display: inline-block; font-size: 0.8rem; font-style: italic;
+      color: var(--gold-light); letter-spacing: 0.03em;
+      padding: 0.3rem 1rem; border-radius: 9999px;
+      border: 1px solid var(--gold-border); background: var(--gold-dim);
+    }
+
+    /* ── Stats ── */
+    .stats { display: flex; border-bottom: 1px solid var(--border); }
+    .stat {
+      flex: 1; padding: 1.1rem 0.5rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-value {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--gold); line-height: 1; margin-bottom: 0.2rem;
+    }
+    .stat-label {
+      font-size: 0.62rem; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted); font-weight: 500; line-height: 1.35;
+    }
+
+    /* ── Body ── */
+    .body { padding: 1.75rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .description {
+      font-size: 0.85rem; color: var(--text-2);
+      line-height: 1.7; text-align: center;
+    }
+
+    /* ── Domains ── */
+    .section-title {
+      font-size: 0.68rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--muted); font-weight: 600;
+      margin-bottom: 0.7rem;
+    }
+    .domains { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .domain-tag {
+      font-size: 0.75rem; font-weight: 500;
+      padding: 0.3rem 0.8rem; border-radius: 9999px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      color: var(--text-2); transition: border-color 200ms;
+    }
+    .domain-tag:hover { border-color: var(--gold-border); color: var(--text); }
+
+    /* ── Address ── */
+    .address-block {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.85rem 0.9rem; border-radius: 0.75rem;
+      background: var(--surface-2); border: 1px solid var(--border);
+    }
+    .addr-icon { flex-shrink: 0; margin-top: 1px; }
+    .addr-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .addr-text { font-size: 0.8rem; color: var(--text-2); line-height: 1.55; }
+    .addr-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── Buttons grid ── */
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .btn-grid .btn-full { grid-column: 1 / -1; }
+
+    .btn {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      padding: 0.9rem 1rem; border-radius: 0.875rem;
+      font-family: inherit; font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; border: 1px solid transparent; cursor: pointer;
+      transition: all 220ms cubic-bezier(0.16,1,0.3,1);
+      position: relative; overflow: hidden;
+      white-space: nowrap;
+    }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .btn span { flex: 1; text-align: left; }
+
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    /* Website — gold */
+    .btn-website {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: #0c0e10;
+      box-shadow: 0 4px 20px rgba(200,151,58,0.28);
+    }
+    .btn-website:hover { box-shadow: 0 8px 32px rgba(200,151,58,0.4); }
+    .btn-website svg { stroke: #0c0e10; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Email */
+    .btn-email {
+      background: var(--green-dim); color: var(--green);
+      border-color: var(--green-border);
+    }
+    .btn-email:hover { background: rgba(77,184,122,0.2); box-shadow: 0 4px 20px rgba(77,184,122,0.12); }
+    .btn-email svg { stroke: var(--green); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Phone */
+    .btn-phone {
+      background: var(--blue-dim); color: var(--blue);
+      border-color: var(--blue-border);
+    }
+    .btn-phone:hover { background: rgba(79,163,212,0.2); box-shadow: 0 4px 20px rgba(79,163,212,0.12); }
+    .btn-phone svg { stroke: var(--blue); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Facebook */
+    .btn-facebook {
+      background: var(--fb-dim); color: var(--fb);
+      border-color: var(--fb-border);
+    }
+    .btn-facebook:hover { background: rgba(24,119,242,0.2); box-shadow: 0 4px 20px rgba(24,119,242,0.12); }
+    .btn-facebook svg { fill: var(--fb); }
+
+    /* LinkedIn */
+    .btn-linkedin {
+      background: var(--li-dim); color: var(--li);
+      border-color: var(--li-border);
+    }
+    .btn-linkedin:hover { background: rgba(10,102,194,0.2); box-shadow: 0 4px 20px rgba(10,102,194,0.12); }
+    .btn-linkedin svg { fill: var(--li); }
+
+    /* ── Footer ── */
+    .footer {
+      padding-top: 1.25rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .footer-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
+    .footer-text { font-size: 0.67rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <div class="emblem">
+      <!-- Infrastructure / road icon -->
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="36" width="40" height="6" rx="2" fill="#0c0e10"/>
+        <rect x="4" y="26" width="40" height="6" rx="2" fill="#0c0e10"/>
+        <polygon points="4,22 24,6 44,22" fill="#0c0e10"/>
+        <rect x="21" y="10" width="6" height="10" fill="#c8973a"/>
+      </svg>
+    </div>
+    <div class="company-name">SNTP</div>
+    <div class="company-full">Société Nationale des Travaux Publics</div>
+    <div class="tagline">Bâtir l'Algérie de demain</div>
+    <div class="hero-line"></div>
+  </div>
+
+  <!-- ── Stats ── -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-value">1977</div>
+      <div class="stat-label">Fondée en</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">40+</div>
+      <div class="stat-label">Ans d'expérience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">5 000+</div>
+      <div class="stat-label">Employés</div>
+    </div>
+  </div>
+
+  <!-- ── Body ── -->
+  <div class="body">
+
+    <!-- Description -->
+    <p class="description">
+      Fondée en 1977, la SNTP est un acteur national de référence dans la réalisation de grands projets d'infrastructure routière, autoroutière, aéroportuaire et hydraulique. Forte de plus de 40 ans d'expérience, elle contribue activement au développement socio-économique de l'Algérie.
+    </p>
+
+    <!-- Domaines -->
+    <div>
+      <div class="section-title">Domaines d'activité</div>
+      <div class="domains">
+        <span class="domain-tag">🛣️ Routes &amp; Autoroutes</span>
+        <span class="domain-tag">🌉 Ponts &amp; Viaducs</span>
+        <span class="domain-tag">✈️ Infrastructures aéroportuaires</span>
+        <span class="domain-tag">🏗️ Génie civil</span>
+        <span class="domain-tag">💧 Hydraulique</span>
+        <span class="domain-tag">🪨 Matériaux de construction</span>
+        <span class="domain-tag">🏙️ Aménagement urbain</span>
+      </div>
+    </div>
+
+    <!-- Adresse -->
+    <div class="address-block">
+      <div class="addr-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="addr-text">
+        <strong>Siège social</strong><br>
+        Route Nationale N°5, El Hamiz — BP 39<br>
+        Bordj El Kiffan, Alger, Algérie
+      </div>
+    </div>
+
+    <!-- Boutons de contact -->
+    <div>
+      <div class="section-title">Nous retrouver &amp; contacter</div>
+      <div class="btn-grid">
+
+        <!-- Site web — pleine largeur -->
+        <a class="btn btn-website btn-full" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Site officiel — sntp.dz</span>
+          <svg viewBox="0 0 24 24" style="width:14px;opacity:.7"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+
+        <!-- Email -->
+        <a class="btn btn-email" href="mailto:info@sntp.dz?subject=Contact%20SNTP&body=Bonjour%2C%0A%0AJe%20vous%20contacte%20concernant%20...">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Envoyer un e-mail</span>
+        </a>
+
+        <!-- Téléphone -->
+        <a class="btn btn-phone" href="tel:+21321869325">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>+213 21 86 93 25</span>
+        </a>
+
+        <!-- Facebook -->
+        <a class="btn btn-facebook" href="https://www.facebook.com/sntp.officiel" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span>Facebook</span>
+        </a>
+
+        <!-- LinkedIn -->
+        <a class="btn btn-linkedin" href="https://www.linkedin.com/company/epe-spa-sntp/" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="footer-dot"></div>
+      <span class="footer-text">EPE · SPA — Alger, Algérie</span>
+      <div class="footer-dot"></div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
