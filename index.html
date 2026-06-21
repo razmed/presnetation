@@ -21,6 +21,7 @@
       --shadow:0 20px 60px rgba(0,0,0,.45);
       --max:1200px;
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
@@ -31,18 +32,23 @@
         linear-gradient(180deg,#060606 0%,#0b0c0e 38%,#101216 100%);
       overflow-x:hidden;
     }
+
     body::before{
       content:"";
-      position:fixed;inset:0;
+      position:fixed;
+      inset:0;
       background:
         linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
         linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
       background-size:36px 36px;
       mask-image:linear-gradient(to bottom,rgba(0,0,0,.4),transparent 92%);
-      pointer-events:none;z-index:0;
+      pointer-events:none;
+      z-index:0;
     }
+
     img{max-width:100%;display:block}
     a{text-decoration:none;color:inherit}
+    button{font:inherit}
     .page{position:relative;z-index:1}
     .container{width:min(var(--max),calc(100% - 28px));margin:auto}
 
@@ -75,98 +81,190 @@
 
     .hero{
       min-height:100svh;
-      display:grid;align-items:center;
+      display:grid;
+      align-items:center;
       padding:44px 0 58px;
-      position:relative;overflow:hidden;
+      position:relative;
+      overflow:hidden;
     }
+
     .hero::before{
-      content:"";position:absolute;
-      top:-120px;right:-100px;
-      width:420px;height:420px;border-radius:50%;
+      content:"";
+      position:absolute;
+      top:-120px;
+      right:-100px;
+      width:420px;
+      height:420px;
+      border-radius:50%;
       background:radial-gradient(circle,rgba(215,25,32,.28),rgba(215,25,32,.04) 55%,transparent 72%);
       filter:blur(8px);
     }
+
     .hero-grid{
       display:grid;
       grid-template-columns:1.06fr .94fr;
-      gap:34px;align-items:center;
+      gap:34px;
+      align-items:center;
     }
+
     .eyebrow{
-      display:inline-flex;align-items:center;gap:10px;
-      padding:10px 16px;border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:999px;
       border:1px solid var(--red-line);
       background:rgba(255,255,255,.03);
-      color:#ffd9db;font-size:13px;
-      letter-spacing:.14em;text-transform:uppercase;
-      margin-bottom:20px;backdrop-filter:blur(8px);
+      color:#ffd9db;
+      font-size:13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      margin-bottom:20px;
+      backdrop-filter:blur(8px);
     }
+
     .eyebrow::before{
-      content:"";width:8px;height:8px;border-radius:50%;
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
       background:var(--red-2);
       box-shadow:0 0 14px rgba(255,58,67,.85);
     }
+
     .hero-title{
       font-family:'Barlow Condensed',sans-serif;
       font-size:clamp(3.4rem,8vw,7rem);
-      line-height:.9;text-transform:uppercase;
-      letter-spacing:.03em;margin-bottom:18px;
+      line-height:.9;
+      text-transform:uppercase;
+      letter-spacing:.03em;
+      margin-bottom:18px;
     }
+
     .hero-title span{color:var(--red-2)}
+
     .hero-text{
-      max-width:680px;color:var(--text-2);
-      line-height:1.85;font-size:1.03rem;margin-bottom:28px;
+      max-width:680px;
+      color:var(--text-2);
+      line-height:1.85;
+      font-size:1.03rem;
+      margin-bottom:28px;
     }
-    .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
 
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      gap:10px;min-height:54px;padding:0 22px;
-      border-radius:15px;font-weight:700;
-      border:1px solid transparent;transition:.25s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:54px;
+      padding:0 22px;
+      border-radius:15px;
+      font-weight:700;
+      border:1px solid transparent;
+      transition:.25s ease;
       font-family:'Inter',system-ui,sans-serif;
-      font-size:1rem;cursor:pointer;
+      font-size:1rem;
+      cursor:pointer;
     }
+
     .btn:hover{transform:translateY(-2px)}
+
     .btn-primary{
       background:linear-gradient(135deg,var(--red),var(--red-2));
-      color:#fff;box-shadow:0 16px 40px rgba(215,25,32,.28);
+      color:#fff;
+      box-shadow:0 16px 40px rgba(215,25,32,.28);
     }
-    .btn-primary:hover{box-shadow:0 22px 50px rgba(215,25,32,.38)}
+
+    .btn-primary:hover{
+      box-shadow:0 22px 50px rgba(215,25,32,.38);
+    }
+
     .btn-secondary{
-      color:#fff;border-color:var(--border);
-      background:rgba(255,255,255,.03);backdrop-filter:blur(8px);
+      color:#fff;
+      border-color:var(--border);
+      background:rgba(255,255,255,.03);
+      backdrop-filter:blur(8px);
     }
-    .btn-secondary:hover{border-color:var(--red-line);background:rgba(255,255,255,.05)}
+
+    .btn-secondary:hover{
+      border-color:var(--red-line);
+      background:rgba(255,255,255,.05);
+    }
 
     .hero-visual{position:relative;min-height:620px}
+
     .visual-card{
-      position:absolute;overflow:hidden;border-radius:28px;
+      position:absolute;
+      overflow:hidden;
+      border-radius:28px;
       border:1px solid rgba(255,255,255,.08);
       box-shadow:var(--shadow);
       animation:floatSoft 7s ease-in-out infinite;
     }
-    .visual-card img{width:100%;height:100%;object-fit:cover}
-    .visual-main{inset:0 38px 70px 0}
-    .visual-side{
-      width:220px;height:280px;
-      right:-8px;top:30px;
-      background:#fff;padding:12px;animation-delay:1s;
+
+    .visual-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
     }
-    .visual-side img{object-fit:contain;background:#fff;border-radius:16px}
+
+    .visual-main{inset:0 38px 70px 0}
+
+    .visual-side{
+      width:220px;
+      height:280px;
+      right:-8px;
+      top:30px;
+      background:#fff;
+      padding:12px;
+      animation-delay:1s;
+    }
+
+    .visual-side img{
+      object-fit:contain;
+      background:#fff;
+      border-radius:16px;
+    }
+
     .visual-badge{
-      position:absolute;left:24px;bottom:24px;max-width:280px;
-      padding:18px;border-radius:18px;
+      position:absolute;
+      left:24px;
+      bottom:24px;
+      max-width:280px;
+      padding:18px;
+      border-radius:18px;
       background:rgba(7,7,7,.72);
       border:1px solid rgba(255,255,255,.08);
       backdrop-filter:blur(16px);
       animation:pulseGlow 3.8s ease-in-out infinite;
     }
+
     .visual-badge small{
-      display:block;color:#ffb9bd;text-transform:uppercase;
-      letter-spacing:.14em;font-size:.68rem;margin-bottom:8px;
+      display:block;
+      color:#ffb9bd;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.68rem;
+      margin-bottom:8px;
     }
-    .visual-badge strong{display:block;margin-bottom:7px;font-size:1rem}
-    .visual-badge p{color:var(--text-2);line-height:1.6;font-size:.9rem}
+
+    .visual-badge strong{
+      display:block;
+      margin-bottom:7px;
+      font-size:1rem;
+    }
+
+    .visual-badge p{
+      color:var(--text-2);
+      line-height:1.6;
+      font-size:.9rem;
+    }
 
     .band{
       overflow:hidden;
@@ -174,169 +272,331 @@
       border-bottom:1px solid var(--border);
       background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01),rgba(255,255,255,.03));
     }
+
     .band-track{
-      display:flex;width:max-content;
+      display:flex;
+      width:max-content;
       animation:marquee 18s linear infinite;
     }
+
     .band-track span{
-      flex:0 0 auto;padding:16px 26px;
+      flex:0 0 auto;
+      padding:16px 26px;
       font-family:'Barlow Condensed',sans-serif;
-      font-size:1.25rem;text-transform:uppercase;
-      letter-spacing:.14em;color:#eef2f6;
+      font-size:1.25rem;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      color:#eef2f6;
     }
 
-    .section{padding:92px 0;position:relative}
+    .section{
+      padding:92px 0;
+      position:relative;
+    }
+
     .section-head{
-      display:flex;justify-content:space-between;
-      align-items:end;gap:24px;margin-bottom:36px;
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:24px;
+      margin-bottom:36px;
     }
+
     .section-kicker{
-      color:#ffb8bc;text-transform:uppercase;
-      letter-spacing:.18em;font-size:.72rem;margin-bottom:12px;
+      color:#ffb8bc;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.72rem;
+      margin-bottom:12px;
     }
+
     .section-title{
       font-family:'Barlow Condensed',sans-serif;
       font-size:clamp(2.1rem,4vw,3.5rem);
-      line-height:.95;text-transform:uppercase;letter-spacing:.04em;
+      line-height:.95;
+      text-transform:uppercase;
+      letter-spacing:.04em;
     }
+
     .section-title span{color:var(--red-2)}
-    .section-desc{max-width:550px;color:var(--text-2);line-height:1.8}
+
+    .section-desc{
+      max-width:550px;
+      color:var(--text-2);
+      line-height:1.8;
+    }
 
     .split-grid{
-      display:grid;grid-template-columns:1fr 1fr;
-      gap:28px;align-items:center;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:28px;
+      align-items:center;
     }
 
     .carousel{
-      position:relative;border-radius:28px;overflow:hidden;
-      border:1px solid var(--border);box-shadow:var(--shadow);
-      min-height:500px;background:#111;
+      position:relative;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      min-height:500px;
+      background:#111;
     }
+
     .carousel-inner{
       display:flex;
       transition:transform .6s cubic-bezier(.16,1,.3,1);
       height:100%;
     }
+
     .carousel-slide{
       flex:0 0 100%;
-      position:relative;min-height:500px;
+      position:relative;
+      min-height:500px;
     }
+
     .carousel-slide img{
-      width:100%;height:100%;
+      width:100%;
+      height:100%;
       object-fit:cover;
       transform:scale(1.03);
       transition:transform .9s ease;
     }
+
     .carousel-slide::after{
-      content:"";position:absolute;inset:0;
+      content:"";
+      position:absolute;
+      inset:0;
       background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.55));
     }
+
     .carousel-tag{
-      position:absolute;top:18px;left:18px;z-index:3;
-      padding:10px 14px;border-radius:999px;
-      background:rgba(215,25,32,.92);color:#fff;
-      text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;
+      position:absolute;
+      top:18px;
+      left:18px;
+      z-index:3;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(215,25,32,.92);
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.7rem;
     }
+
     .carousel-btn{
-      position:absolute;top:50%;z-index:3;
+      position:absolute;
+      top:50%;
+      z-index:3;
       transform:translateY(-50%);
-      width:44px;height:44px;border-radius:50%;
+      width:44px;
+      height:44px;
+      border-radius:50%;
       background:rgba(7,7,7,.65);
       border:1px solid rgba(255,255,255,.12);
       backdrop-filter:blur(10px);
-      color:#fff;font-size:1.2rem;cursor:pointer;
-      display:grid;place-items:center;
+      color:#fff;
+      font-size:1.2rem;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
       transition:.2s ease;
     }
-    .carousel-btn:hover{background:var(--red);border-color:var(--red)}
+
+    .carousel-btn:hover{
+      background:var(--red);
+      border-color:var(--red);
+    }
+
     .carousel-prev{left:14px}
     .carousel-next{right:14px}
+
     .carousel-dots{
-      position:absolute;bottom:16px;left:50%;
+      position:absolute;
+      bottom:16px;
+      left:50%;
       transform:translateX(-50%);
-      display:flex;gap:7px;z-index:3;
+      display:flex;
+      gap:7px;
+      z-index:3;
     }
+
     .carousel-dot{
-      width:8px;height:8px;border-radius:50%;
+      width:8px;
+      height:8px;
+      border-radius:50%;
       background:rgba(255,255,255,.30);
-      cursor:pointer;transition:.2s ease;border:none;padding:0;
+      cursor:pointer;
+      transition:.2s ease;
+      border:none;
+      padding:0;
     }
-    .carousel-dot.active{background:var(--red-2);transform:scale(1.2)}
+
+    .carousel-dot.active{
+      background:var(--red-2);
+      transform:scale(1.2);
+    }
 
     .text-panel{
-      position:relative;overflow:hidden;
-      padding:34px;border-radius:28px;
+      position:relative;
+      overflow:hidden;
+      padding:34px;
+      border-radius:28px;
       border:1px solid var(--border);
       background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
-      box-shadow:var(--shadow);backdrop-filter:blur(10px);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(10px);
     }
+
     .text-panel::before{
-      content:"";position:absolute;inset:0;
+      content:"";
+      position:absolute;
+      inset:0;
       background:linear-gradient(120deg,transparent,rgba(255,255,255,.04),transparent);
       transform:translateX(-100%);
       animation:shine 7s linear infinite;
     }
+
     .text-panel h3{
       position:relative;
       font-family:'Barlow Condensed',sans-serif;
-      font-size:2rem;text-transform:uppercase;
-      letter-spacing:.04em;margin-bottom:16px;z-index:1;
+      font-size:2rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin-bottom:16px;
+      z-index:1;
     }
+
     .text-panel p{
-      position:relative;color:var(--text-2);
-      line-height:1.85;margin-bottom:18px;z-index:1;
+      position:relative;
+      color:var(--text-2);
+      line-height:1.85;
+      margin-bottom:18px;
+      z-index:1;
     }
-    .feature-list{position:relative;display:grid;gap:14px;margin-top:16px;z-index:1}
+
+    .feature-list{
+      position:relative;
+      display:grid;
+      gap:14px;
+      margin-top:16px;
+      z-index:1;
+    }
+
     .feature-item{
-      display:flex;gap:14px;align-items:flex-start;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
       padding:14px 0;
       border-top:1px solid rgba(255,255,255,.07);
     }
-    .feature-item:first-child{border-top:0;padding-top:0}
-    .feature-icon{
-      width:40px;height:40px;flex:0 0 40px;
-      border-radius:12px;display:grid;place-items:center;
-      background:var(--red-soft);border:1px solid var(--red-line);
-      color:var(--red-2);font-weight:800;
+
+    .feature-item:first-child{
+      border-top:0;
+      padding-top:0;
     }
-    .feature-item strong{display:block;margin-bottom:6px}
-    .feature-item span{color:var(--text-2);line-height:1.7;font-size:.95rem}
+
+    .feature-icon{
+      width:40px;
+      height:40px;
+      flex:0 0 40px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:var(--red-soft);
+      border:1px solid var(--red-line);
+      color:var(--red-2);
+      font-weight:800;
+    }
+
+    .feature-item strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .feature-item span{
+      color:var(--text-2);
+      line-height:1.7;
+      font-size:.95rem;
+    }
 
     .contact-card{
-      position:relative;overflow:hidden;
-      display:grid;grid-template-columns:1.1fr .9fr;
-      gap:28px;padding:34px;border-radius:30px;
+      position:relative;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      padding:34px;
+      border-radius:30px;
       border:1px solid var(--border);
       background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
       box-shadow:var(--shadow);
     }
+
     .contact-card::before{
-      content:"";position:absolute;
-      top:-60px;right:-50px;
-      width:220px;height:220px;border-radius:50%;
+      content:"";
+      position:absolute;
+      top:-60px;
+      right:-50px;
+      width:220px;
+      height:220px;
+      border-radius:50%;
       background:radial-gradient(circle,rgba(215,25,32,.18),transparent 70%);
     }
+
     .contact-meta h3{
       font-family:'Barlow Condensed',sans-serif;
-      font-size:2.2rem;text-transform:uppercase;
-      letter-spacing:.04em;margin-bottom:14px;
+      font-size:2.2rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin-bottom:14px;
     }
-    .contact-meta p{color:var(--text-2);line-height:1.85;margin-bottom:22px}
-    .contact-list{display:grid;gap:14px}
+
+    .contact-meta p{
+      color:var(--text-2);
+      line-height:1.85;
+      margin-bottom:22px;
+    }
+
+    .contact-list{
+      display:grid;
+      gap:14px;
+    }
+
     .contact-item{
-      padding:16px 18px;border-radius:16px;
+      padding:16px 18px;
+      border-radius:16px;
       background:rgba(255,255,255,.03);
       border:1px solid rgba(255,255,255,.06);
     }
+
     .contact-item small{
-      display:block;color:#ffb8bc;text-transform:uppercase;
-      letter-spacing:.12em;font-size:.68rem;margin-bottom:6px;
+      display:block;
+      color:#ffb8bc;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.68rem;
+      margin-bottom:6px;
     }
-    .contact-item span{color:#fff;font-weight:600}
-    .contact-actions{display:grid;gap:12px;align-content:center}
+
+    .contact-item span{
+      color:#fff;
+      font-weight:600;
+    }
+
+    .contact-actions{
+      display:grid;
+      gap:12px;
+      align-content:center;
+    }
+
     .contact-actions .btn{width:100%}
 
-    .phone-group{position:relative;width:100%}
+    .phone-group{
+      position:relative;
+      width:100%;
+    }
+
     .btn-phone{
       width:100%;
       background:rgba(58,159,212,.10);
@@ -344,15 +604,27 @@
       border-color:rgba(58,159,212,.28);
       justify-content:flex-start;
     }
-    .btn-phone:hover{background:rgba(58,159,212,.18);border-color:rgba(58,159,212,.45)}
-    #phone-chevron{margin-left:auto;transition:transform .25s ease}
-    .phone-group.open #phone-chevron{transform:rotate(180deg)}
+
+    .btn-phone:hover{
+      background:rgba(58,159,212,.18);
+      border-color:rgba(58,159,212,.45);
+    }
+
+    #phone-chevron{
+      margin-left:auto;
+      transition:transform .25s ease;
+    }
+
+    .phone-group.open #phone-chevron{
+      transform:rotate(180deg);
+    }
 
     .phone-menu{
       display:none;
       position:absolute;
       bottom:calc(100% + 10px);
-      left:0;right:0;
+      left:0;
+      right:0;
       background:#16191d;
       border:1px solid rgba(255,255,255,.10);
       border-radius:18px;
@@ -360,45 +632,75 @@
       box-shadow:0 20px 60px rgba(0,0,0,.55);
       z-index:10;
     }
+
     .phone-group.open .phone-menu{
       display:block;
       animation:menuPop .22s cubic-bezier(.16,1,.3,1);
     }
+
     .phone-option{
-      display:flex;align-items:center;gap:14px;
+      display:flex;
+      align-items:center;
+      gap:14px;
       padding:14px 18px;
       border-bottom:1px solid rgba(255,255,255,.06);
       transition:background .18s ease;
       cursor:pointer;
       color:var(--text);
     }
+
     .phone-option:last-child{border-bottom:0}
-    .phone-option:hover{background:rgba(255,255,255,.05)}
+
+    .phone-option:hover{
+      background:rgba(255,255,255,.05);
+    }
+
     .phone-option-icon{
-      width:36px;height:36px;flex:0 0 36px;
+      width:36px;
+      height:36px;
+      flex:0 0 36px;
       border-radius:10px;
       background:rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.08);
-      display:grid;place-items:center;
+      display:grid;
+      place-items:center;
       color:var(--text-2);
     }
-    .phone-option strong{display:block;font-size:.88rem;color:var(--white);margin-bottom:2px}
-    .phone-option span{font-size:.76rem;color:var(--muted)}
+
+    .phone-option strong{
+      display:block;
+      font-size:.88rem;
+      color:var(--white);
+      margin-bottom:2px;
+    }
+
+    .phone-option span{
+      font-size:.76rem;
+      color:var(--muted);
+    }
 
     .footer{
-      padding:28px 0 42px;color:var(--muted);
-      text-align:center;font-size:.86rem;
+      padding:28px 0 42px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.86rem;
     }
 
     @media (max-width:980px){
-      .hero-grid,.split-grid,.contact-card,.section-head{
-        grid-template-columns:1fr;display:grid;
+      .hero-grid,
+      .split-grid,
+      .contact-card,
+      .section-head{
+        grid-template-columns:1fr;
+        display:grid;
       }
+
       .section-head{align-items:start}
       .hero-visual{min-height:500px}
       .visual-main{inset:0 70px 65px 0}
       .visual-side{width:180px;height:220px;right:0;top:18px}
     }
+
     @media (max-width:720px){
       .hero{min-height:auto;padding-top:28px}
       .hero-title{font-size:clamp(2.9rem,16vw,4.6rem)}
@@ -420,13 +722,12 @@
   <section class="hero">
     <div class="container hero-grid">
       <div class="reveal">
-        <div class="eyebrow">Entreprise nationale d'infrastructure</div>
+        <div class="eyebrow">Société Nationale de Travaux Publics</div>
         <h1 class="hero-title">Bâtir<br><span>l'Algérie</span><br>de demain</h1>
         <p class="hero-text">
           La SNTP conçoit et réalise des projets de travaux publics, d'infrastructures routières, d'aménagements stratégiques et de développement territorial depuis 1977.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://www.sntp.dz" target="_blank" rel="noopener noreferrer">Visiter le site officiel</a>
           <a class="btn btn-secondary" href="#contact">Nous contacter</a>
         </div>
       </div>
@@ -498,13 +799,15 @@
               <img src="4.png" alt="Vue aérienne chantier">
             </div>
           </div>
-          <button class="carousel-btn carousel-prev" onclick="moveCarousel('carousel1',-1)">&#8592;</button>
-          <button class="carousel-btn carousel-next" onclick="moveCarousel('carousel1',1)">&#8594;</button>
+
+          <button class="carousel-btn carousel-prev" type="button" onclick="moveCarousel('carousel1',-1)" aria-label="Slide précédente">&#8592;</button>
+          <button class="carousel-btn carousel-next" type="button" onclick="moveCarousel('carousel1',1)" aria-label="Slide suivante">&#8594;</button>
+
           <div class="carousel-dots">
-            <button class="carousel-dot active" onclick="goToSlide('carousel1',0)"></button>
-            <button class="carousel-dot" onclick="goToSlide('carousel1',1)"></button>
-            <button class="carousel-dot" onclick="goToSlide('carousel1',2)"></button>
-            <button class="carousel-dot" onclick="goToSlide('carousel1',3)"></button>
+            <button class="carousel-dot active" type="button" onclick="goToSlide('carousel1',0)" aria-label="Aller au slide 1"></button>
+            <button class="carousel-dot" type="button" onclick="goToSlide('carousel1',1)" aria-label="Aller au slide 2"></button>
+            <button class="carousel-dot" type="button" onclick="goToSlide('carousel1',2)" aria-label="Aller au slide 3"></button>
+            <button class="carousel-dot" type="button" onclick="goToSlide('carousel1',3)" aria-label="Aller au slide 4"></button>
           </div>
         </div>
 
@@ -513,6 +816,7 @@
           <p>
             Depuis plusieurs décennies, la SNTP intervient sur des projets structurants à forte valeur ajoutée. Ses équipes conçoivent, organisent et exécutent des travaux complexes avec rigueur et méthode.
           </p>
+
           <div class="feature-list">
             <div class="feature-item">
               <div class="feature-icon">01</div>
@@ -521,6 +825,7 @@
                 <span>Axes, terrassement, aménagement et développement des infrastructures de transport nationales.</span>
               </div>
             </div>
+
             <div class="feature-item">
               <div class="feature-icon">02</div>
               <div>
@@ -528,6 +833,7 @@
                 <span>Suivi opérationnel, organisation des équipes et maîtrise de l'exécution sur site.</span>
               </div>
             </div>
+
             <div class="feature-item">
               <div class="feature-icon">03</div>
               <div>
@@ -547,15 +853,18 @@
         <div class="contact-meta">
           <h3>Nous retrouver</h3>
           <p>Retrouvez la SNTP, son siège social et ses principaux canaux de contact.</p>
+
           <div class="contact-list">
-            <div class="contact-item">
-              <small>Siège social</small>
-              <span>Route Nationale N°5, El Hamiz — BP 39, Bordj El Kiffan, Alger, Algérie</span>
-            </div>
+            <a class="contact-item" href="https://maps.app.goo.gl/NQZeESjpp1HBsE7w9" target="_blank" rel="noopener noreferrer">
+  <small>Siège social</small>
+  <span>Route Nationale N°5, El Hamiz — BP 39, Bordj El Kiffan, Alger, Algérie</span>
+</a>
+
             <div class="contact-item">
               <small>Email</small>
               <span>info@sntp.dz</span>
             </div>
+
             <div class="contact-item">
               <small>Téléphone</small>
               <span>+213 797 21 55 14</span>
@@ -568,12 +877,12 @@
           <a class="btn btn-secondary" href="mailto:info@sntp.dz">Envoyer un e-mail</a>
 
           <div class="phone-group">
-            <button class="btn btn-phone" onclick="togglePhoneMenu()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="btn btn-phone" type="button" onclick="togglePhoneMenu()" aria-expanded="false" aria-controls="phoneMenu" id="phoneToggle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
               +213 797 21 55 14
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="phone-chevron">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="phone-chevron" aria-hidden="true">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </button>
@@ -581,7 +890,7 @@
             <div class="phone-menu" id="phoneMenu">
               <a class="phone-option" href="tel:+213797215514">
                 <div class="phone-option-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.02-.97a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </div>
@@ -593,7 +902,7 @@
 
               <a class="phone-option" href="sms:+213797215514">
                 <div class="phone-option-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                   </svg>
                 </div>
@@ -605,7 +914,7 @@
 
               <a class="phone-option" href="#" onclick="saveContact(event)">
                 <div class="phone-option-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
                     <circle cx="9" cy="7" r="4"/>
                     <line x1="19" y1="8" x2="19" y2="14"/>
@@ -636,39 +945,60 @@
   const carousels = {};
 
   function initCarousel(id) {
+    const slides = document.querySelectorAll('#' + id + ' .carousel-slide');
+    if (!slides.length) return;
+
     carousels[id] = {
       current: 0,
-      total: document.querySelectorAll('#' + id + ' .carousel-slide').length
+      total: slides.length
     };
+
+    updateCarousel(id);
   }
 
   function updateCarousel(id) {
     const state = carousels[id];
     const inner = document.querySelector('#' + id + ' .carousel-inner');
+    const dots = document.querySelectorAll('#' + id + ' .carousel-dot');
+
+    if (!state || !inner) return;
+
     inner.style.transform = 'translateX(-' + (state.current * 100) + '%)';
-    document.querySelectorAll('#' + id + ' .carousel-dot').forEach(function(d, i) {
-      d.classList.toggle('active', i === state.current);
+
+    dots.forEach(function(dot, index) {
+      dot.classList.toggle('active', index === state.current);
+      dot.setAttribute('aria-current', index === state.current ? 'true' : 'false');
     });
   }
 
   function moveCarousel(id, dir) {
     const state = carousels[id];
+    if (!state) return;
+
     state.current = (state.current + dir + state.total) % state.total;
     updateCarousel(id);
   }
 
   function goToSlide(id, index) {
-    carousels[id].current = index;
+    const state = carousels[id];
+    if (!state) return;
+
+    state.current = index;
     updateCarousel(id);
   }
 
   function togglePhoneMenu() {
     const group = document.querySelector('.phone-group');
+    const toggle = document.getElementById('phoneToggle');
+    if (!group || !toggle) return;
+
     group.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', group.classList.contains('open') ? 'true' : 'false');
   }
 
   function saveContact(e) {
     e.preventDefault();
+
     const vcard = [
       'BEGIN:VCARD',
       'VERSION:3.0',
@@ -679,32 +1009,45 @@
       'URL:https://www.sntp.dz',
       'ADR;TYPE=WORK:;;Route Nationale N°5 El Hamiz BP 39;Bordj El Kiffan;Alger;;Algérie',
       'END:VCARD'
-    ].join('\n');
-    const blob = new Blob([vcard], {type: 'text/vcard'});
+    ].join('\\n');
+
+    const blob = new Blob([vcard], { type: 'text/vcard' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
+
     a.href = url;
     a.download = 'SNTP.vcf';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+
     URL.revokeObjectURL(url);
   }
 
   document.addEventListener('click', function(e) {
     const group = document.querySelector('.phone-group');
+    const toggle = document.getElementById('phoneToggle');
+
     if (group && !group.contains(e.target)) {
       group.classList.remove('open');
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
     }
   });
 
   document.addEventListener('DOMContentLoaded', function() {
     initCarousel('carousel1');
-    setInterval(function() { moveCarousel('carousel1', 1); }, 4000);
+
+    setInterval(function() {
+      moveCarousel('carousel1', 1);
+    }, 4000);
 
     const observer = new IntersectionObserver(function(entries) {
       entries.forEach(function(entry) {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
     }, { threshold: 0.13 });
 
